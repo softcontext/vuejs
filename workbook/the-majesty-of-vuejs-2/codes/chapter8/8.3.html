@@ -1,0 +1,93 @@
+<html>
+<head>
+  <title>Food Battle</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container text-center">
+    <p style="font-size: 140px;">{{ votes }}</p>
+
+    <div class="row">
+      <!-- JS의 프로퍼티 속성은 카멜케이스, 태그 속성은 케밥케이스 표기법을 사용한다. -->
+      <food @voted="countVote" name="Cheeseburger" :total-votes="votes"></food>
+      <food @voted="countVote" name="Double Bacon Burger" :total-votes="votes"></food>
+      <food @voted="countVote" name="Rodeo Burger" :total-votes="votes"></food>
+    </div>
+
+    <h1>Log:</h1>
+
+    <ul class="list-group">
+      <li class="list-group-item" v-for="lo in log"> {{ lo }} </li>
+    </ul>
+  </div>
+
+</body>
+
+<template id="food">
+  <div class="text-center col-lg-4">
+    <p style="font-size: 40px;">{{ votes }} / {{ totalVotes }}</p>
+    <button class="btn btn-default" @click="vote">{{ name }}</button>
+  </div>
+</template>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script type="text/javascript">
+// var bus = new Vue()
+
+Vue.component('food', {
+  template: '#food',
+  props: ['name', 'totalVotes'],
+  data: function () {
+    // 로직을 배치할 수 있는 공간을 사용할 수 있다.
+    return { // 결국, 리턴 객체가 할당된다.
+      votes: 0
+    }
+  },
+  methods: {
+      vote: function (e) {
+          this.votes++
+
+          // #1
+          // 컴포넌트의 name 프로퍼티를 바로 사용할 수 있다.
+          console.log('this.name = ' + this.name);
+
+          // #2
+          // 이벤트 구조를 파악하여 원하는 정보를 찾아서 사용할 수 있다.
+          console.log(e);
+          // 자동으로 event 라는 예약어로 이벤트를 받는 것을 알 수 있다.
+          console.log(e === event);
+          // 이벤트를 발생시킨 엘리먼트에 접근해서 텍스트 컨텐츠를 구한다.
+          console.log('event.srcElement.textContent = '+event.srcElement.textContent);
+
+          this.$emit('voted', event.srcElement.textContent)
+      }
+  },
+  created() { // 컴포넌트 객체 생성 시에만 기동한다.
+    console.log('food # created() called.');
+    console.log('  this.totalVotes = ' + this.totalVotes);
+  },
+  updated() { // 컴포넌트가 부모로부터 파라미터를 받아서 재 래던링된 후 기동한다.
+    console.log('food # updated() called.');
+    console.log('  this.totalVotes = ' + this.totalVotes);
+  }
+})
+
+new Vue({
+  el: '.container',
+  data: {
+    votes: 0,
+    log: []
+  },
+  methods:
+  {
+    countVote: function (food) {
+      this.votes++
+
+      // @voted="countVote" 설정처럼 $event 설정을 생략해도 파라미터가 전달된다.
+      this.log.push(food + ' received a vote.')
+    }
+  }
+})
+</script>
+</html>

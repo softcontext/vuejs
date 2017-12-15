@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <!--
+      loginType을 바꾸어도 사용자가 이미 입력한 내용은 지워지지 않습니다.
+      두 템플릿 모두 같은 요소를 사용하므로 <input>은 대체되지 않고 단지 placeholder만 변경됩니다. -->
+      <template v-if="loginType === 'username'">
+        <label>사용자 이름</label>
+        <input placeholder="사용자 이름을 입력하세요">
+      </template>
+      <template v-else>
+        <label>이메일</label>
+        <input placeholder="이메일 주소를 입력하세요">
+      </template>
+      <div>
+        <button type="button" v-on:click="change">Change Login Type</button>
+      </div>
+      <hr>
+      <!--
+      이것은 항상 바람직하지는 않습니다.
+      때문에 “이 두 엘리먼트는 완전히 별개이므로 다시 사용하지 마십시오.”라고 알리는 방법을 제공합니다.
+      유일한 값으로 key 속성을 추가하십시오. -->
+      <template v-if="loginType === 'username'">
+        <label>사용자 이름</label>
+        <input placeholder="사용자 이름을 입력하세요" key="username-input">
+      </template>
+      <template v-else>
+        <label>이메일</label>
+        <input placeholder="이메일 주소를 입력하세요" key="email-input">
+      </template>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: '#example',
+        data: {
+          loginType: 'username'
+        },
+        methods: {
+          change() {
+            this.loginType = this.loginType === 'username'
+              ? 'email'
+              : 'username'
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

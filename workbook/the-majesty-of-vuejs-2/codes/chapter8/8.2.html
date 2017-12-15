@@ -1,0 +1,55 @@
+<html>
+<head>
+  <title>Emit and Listen</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container text-center">
+    <!-- 데이터는 부모 컴포넌트가 보유한다. -->
+    <p style="font-size: 140px;">{{ votes }}</p>
+    <!-- 이벤트는 자식 컴포넌트에서 발생한다. -->
+    <!-- @voted 는 커스텀 이벤트를 의미한다. -->
+    <!-- ($event) 선언은 생략이 가능하다. (비교: 앵귤러는 설정이 필요하다) -->
+    <food @voted="vote($event)" name="Cheeseburger"></food>
+  </div>
+
+  <template id="food">
+    <button class="btn btn-default" @click="vote">{{ name }}</button>
+  </template>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script type="text/javascript">
+Vue.component('food', {
+  template: '#food',
+  props: ['name'],
+  methods: {
+    vote: function (e) {
+      var obj = {
+        e,
+        a:10,
+        b:20
+      };
+      this.$emit('voted', obj);
+    }
+  },
+  created() {
+    console.log('food # created() called.');
+  }
+})
+
+new Vue({
+  el: '.container',
+  data: {
+    votes: 0
+  },
+  methods: {
+    vote: function (obj) {
+      console.log(obj.e.target);
+      this.votes++
+    },
+  },
+})
+</script>
+</html>

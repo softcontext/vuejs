@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <title>Famous Stories</title>
+  </head>
+  <body>
+
+    <div class="container">
+      <h2>Date Filter</h2>
+
+      <p>{{ now | dateToString }}</p>
+      <p>{{ now | dateToString | formatDate }}</p>
+
+      <pre>{{ $data }}</pre>
+    </div>
+
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '.container',
+      data: {
+        now: new Date()
+      },
+      filters: {
+        dateToString(date) {
+          return date.toString()
+        },
+        formatDate(str) {
+          var d = new Date(str)
+          var year = d.getFullYear()
+          var month = '' + (d.getMonth() + 1)
+          var day = '' + d.getDate()
+
+          if (month.length < 2) {
+            month = '0' + month
+          }
+          if (day.length < 2) {
+            day = '0' + day
+          }
+
+          return [year, month, day].join('-')
+        }
+      }
+    });
+  </script>
+</html>

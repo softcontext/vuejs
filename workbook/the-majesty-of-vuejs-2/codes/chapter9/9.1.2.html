@@ -1,0 +1,65 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <title>Hello Vue</title>
+</head>
+<body>
+
+  <div class="container text-center">
+    <!-- 클래스명 box는 고정이며 바인드되어 추가되는 클래스는 color 변수값에 따라 변한다. -->
+    <div class="box" v-bind:class="[ 'big', color ? 'red' : 'blue' ]"><p>1</p></div>
+    <div class="box" v-bind:class="[ 'big', color ? 'purple' : 'green' ]">2</div>
+    <div class="box" v-bind:class="[ variable, color ? 'red' : 'blue' ]">3</div>
+    <div class="box" v-bind:class="[ variable, color ? 'purple' : 'green' ]">4</div>
+
+    <button v-on:click="flipColor" class="btn btn-block btn-success">
+      Flip color!
+    </button>
+  </div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script type="text/javascript">
+new Vue({
+  el: '.container',
+  data: {
+    color: true,
+    variable: 'small'
+  },
+  methods: {
+    flipColor: function() {
+      this.color = !this.color;
+    }
+  }
+});
+</script>
+
+<style type="text/css">
+.red {
+  background: #ff0000;
+}
+.blue {
+  background: #0000ff;
+}
+.box {
+  float: left;
+  width: 200px;
+  line-height: 200px;
+  margin: 40px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+.purple {
+  background: #7B1FA2;
+}
+.green {
+  background: #4CAF50;
+}
+.big {
+  font-size: 100px;
+}
+.small {
+  font-size: 50px;
+}
+</style>
+</html>

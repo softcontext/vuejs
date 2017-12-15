@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <title>Famous Stories</title>
+  </head>
+  <body>
+
+    <div class="container">
+      <h2>Tip Calculator</h2>
+
+      <p><strong>Total: {{ total }}</strong></p>
+      <p>15%: {{ total | tip15 }}</p>
+      <p>20%: {{ total | tip20 }}</p>
+      <p>25%: {{ total | tip25 }}</p>
+
+      <pre>{{ $data }}</pre>
+    </div>
+
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '.container',
+      data: {
+        total: 35.43
+      },
+      filters: {
+        tip15(value) {
+          return (value * .15).toFixed(2)
+        },
+        tip20(value) {
+          return (value * .2).toFixed(2)
+        },
+        tip25(value) {
+          return (value * .25).toFixed(2)
+        }
+      }
+    });
+  </script>
+</html>

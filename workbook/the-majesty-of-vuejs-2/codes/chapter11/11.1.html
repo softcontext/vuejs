@@ -1,0 +1,105 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <title>Hello Vue</title>
+</head>
+<body>
+
+  <div id="app">
+    <div class="container">
+      <h1>Let's hear some stories!</h1>
+
+      <ul class="list-group" v-cloak>
+        <story v-for="story in stories" :story="story" :favorite="favorite"
+          @update="updateFavorite">
+        </story>
+      </ul>
+
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+
+</body>
+
+<template id="story-template">
+  <li  class="list-group-item">
+    {{ story.writer }} said "{{ story.plot }}". Story upvotes {{ story.upvotes }}.
+
+    <button v-show="!story.voted" @click="upvote" class="btn btn-default">
+      Upvote
+    </button>
+
+    <button v-show="!isFavorite" @click="markAsFavorite" class="btn btn-primary">
+      Favorite
+    </button>
+    <span v-show="isFavorite" class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span>
+  </li>
+</template>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.0-rc.8/vue.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+Vue.component('story', {
+  template: "#story-template",
+  props: ['story', 'favorite'],
+  methods:{
+    upvote: function(){
+      this.story.upvotes += 1;
+      this.story.voted = true;
+    },
+    markAsFavorite: function(){
+      // 'update' is just the name of the custom event
+      // it could be anything. ex: fav-update
+      this.$emit('update', this.story)
+    },
+  },
+  computed:{
+    isFavorite: function(){
+      return this.story == this.favorite;
+    },
+  },
+  created() {
+    console.log(1);
+    console.log('created() called.');
+  },
+  mounted() {
+    console.log(2);
+    console.log('mounted() called.');
+  },
+  updated() {
+    console.log(3);
+    console.log('updated() called.');
+  }
+});
+
+var vm = new Vue({
+  el: '#app',
+  data: {
+    stories: [],
+    favorite: {}
+  },
+  methods:{
+      updateFavorite: function(story){
+        // favorite 값이 갱신되면 이를 사용하는 컴포넌트가 갱신된다.
+        this.favorite = story;
+      },
+  },
+  mounted: function () {
+    setTimeout(function () {
+      $.get('http://localhost:3000/stories', function (data) {
+        console.log(Array.isArray(data) ? 'array' : typeof data);
+        
+        // 콜백에서 this는 Vue 인스턴스와 바인딩돼 있지 않기 때문에 vm 참조를 사용한다.
+        vm.stories = data;
+      })
+    }, 2000); // 원격 서버에서 데이터를 받는 시간으로 2초가 소요된다고 가정하자.
+  }
+})
+</script>
+
+<style media="screen">
+  [v-cloak] {
+    display: none;
+  }
+</style>
+</html>

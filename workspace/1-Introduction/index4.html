@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app-4">
+      <div class="">
+        <input type="text" id="work">
+        <button type="button" name="button" v-on:click="add">Add</button>
+      </div>
+      <ol>
+        <li v-for="todo in todos">
+          {{ todo.text }}
+        </li>
+      </ol>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      var app4 = new Vue({
+        el: '#app-4',
+        data: {
+          todos: [
+            {text: 'JavaScript 배우기'},
+            {text: 'Vue 배우기'},
+            {text: '무언가 멋진 것을 만들기'}
+          ]
+        },
+        methods: {
+          add: function () {
+            var work = document.querySelector('#work').value
+            document.querySelector('#work').value = ''
+            if (work) {
+              this.todos.push({ text:work })
+            }
+          }
+        }
+      })
+
+      app4.todos.push({ text:'New item' })
+    </script>
+  </body>
+</html>

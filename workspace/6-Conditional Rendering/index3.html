@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <!-- v-show는 단순히 엘리먼트에 display CSS 속성을 토글합니다. -->
+      <!-- v-show는 <template> 구문을 지원하지 않으며 v-else와도 작동하지 않습니다. -->
+      <!--
+      일반적으로 v-if는 토글 비용이 높고 v-show는 초기 렌더링 비용이 더 높습니다.
+      매우 자주 바꾸기를 원한다면 v-show를, 런타임 시 조건이 바뀌지 않으면 v-if를 권장합니다.
+      v-if와 함께 사용하는 경우, v-for는 v-if보다 높은 우선순위를 갖습니다. -->
+      <h1 v-show="ok">안녕하세요!</h1>
+      <div>
+        <button type="button" v-on:click="change">Change Login Type</button>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+    var vm = new Vue({
+      el: '#example',
+      data: {
+        ok: true
+      },
+      methods: {
+        change() {
+          this.ok = !this.ok;
+        }
+      }
+    })
+    </script>
+  </body>
+</html>

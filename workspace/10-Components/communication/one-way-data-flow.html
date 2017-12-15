@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <custom :initial-counter="100" initial-color="red"></custom>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      Vue.component('custom', {
+        props: [
+          'initialCounter', 'initialColor'
+        ],
+        data: function () {
+          console.log(typeof this.initialCounter);
+          return {counter: this.initialCounter}
+        },
+        computed: {
+          normalizedColor: function () {
+            console.log(typeof this.initialColor);
+            return this.initialColor.trim().toLowerCase()
+          }
+        },
+        template: `
+          <div>
+            <span :style="{color:this.normalizedColor}">{{ counter }}</span>
+          </div>
+        `
+      })
+
+      new Vue({el: '#example'})
+    </script>
+  </body>
+</html>

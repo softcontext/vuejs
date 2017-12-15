@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <!--
+        브라우저가 지원하는 배열의 마지막 값만 렌더링합니다.
+        flexbox의 접두어가 붙지않은 버전을 지원하는 브라우저에 대해 display : flex를 렌더링합니다. -->
+      <div v-bind:style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">Hello</div>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      new Vue({el: '#example'})
+    </script>
+  </body>
+</html>

@@ -1,0 +1,106 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <title>Hello Vue</title>
+</head>
+<body>
+
+  <div id="app">
+    <div class="container">
+      <h1>Let's hear some stories!</h1>
+
+      <ul class="list-group">
+        <!-- 부모가 자식에게 부모의 함수를 파라미터로 전달하고
+            자식이 이 함수를 사용하여 부모에게 데이터를 보낸다. -->
+        <story v-for="story in stories" :story="story" :favorite="favorite" :parent-update-favorite="updateFavorite"></story>
+      </ul>
+
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+
+  <template id="story-template">
+      <li class="list-group-item">
+          {{ story.writer }} said "{{ story.plot }}". Story upvotes
+          <mark>{{ story.upvotes }}</mark>.
+
+          <button v-show="!story.voted" @click="upvote" class="btn btn-default">
+              Upvote
+          </button>
+
+          <button v-show="!isFavorite" @click="setFavorite" class="btn btn-primary">
+              Favorite
+          </button>
+          <span v-show="isFavorite" class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span>
+      </li>
+  </template>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script type="text/javascript">
+Vue.component('story', {
+    template: "#story-template",
+    props: ['story', 'favorite', 'parentUpdateFavorite'],
+    methods:{
+        upvote: function(){
+            this.story.upvotes += 1;
+            this.story.voted = true;
+        },
+        setFavorite: function () {
+            this.parentUpdateFavorite(this.story);
+        }
+    },
+    computed:{
+      isFavorite: function () {
+        // setFavorite 함수가 호출되면 this.favorite 값이 변경되고
+        // 이 함수에서 this.favorite 값을 사용하므로 자동으로 호출된다.
+        console.log('computed # isFavorite called.');
+        return this.story == this.favorite;
+      }
+    },
+    updated() {
+      console.log('-------------------------');
+      console.log('story # updated() called.');
+    }
+});
+
+new Vue({
+    el: '#app',
+    data: {
+        stories: [
+            {
+                plot: 'My horse is amazing.',
+                writer: 'Mr. Weebl',
+                upvotes: 28,
+                voted: false,
+            },
+            {
+                plot: 'Narwhals invented Shish Kebab.',
+                writer: 'Mr. Weebl',
+                upvotes: 8,
+                voted: false,
+            },
+            {
+                plot: 'The dark side of the Force is stronger.',
+                writer: 'Darth Vader',
+                upvotes: 49,
+                voted: false,
+            },
+            {
+                plot: 'One does not simply walk into Mordor',
+                writer: 'Boromir',
+                upvotes: 74,
+                voted: false,
+            },
+        ],
+        favorite: {}
+    },
+    methods: {
+      updateFavorite: function (story) {
+        this.favorite = story;
+      }
+    }
+})
+</script>
+</html>

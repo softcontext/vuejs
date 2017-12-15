@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <todo-item v-bind="todo"></todo-item>
+      <!-- 위 컴포넌트 설정과 아래 컴포넌트 설정은 같다. -->
+      <todo-item v-bind:text="todo.text" v-bind:is-complete="todo.isComplete"></todo-item>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      Vue.component('todo-item', {
+        props: ['text', 'isComplete'],
+        template: `
+          <div>
+            <span>{{ text }}, {{ isComplete }}</span>
+          </div>
+        `
+      })
+
+      new Vue({
+        el: '#example',
+        data: {
+          todo: {
+            text: 'Learn Vue',
+            isComplete: false
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

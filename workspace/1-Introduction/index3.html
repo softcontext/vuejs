@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app-3">
+      <button type="button" v-on:click="toggle">Toggle</button>
+      <h1 v-if="seen">Hello World!</h1>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      var app3 = new Vue({
+        el: '#app-3',
+        data: {
+          seen: true
+        },
+        methods: {
+          toggle: function () {
+            this.seen = !this.seen;
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

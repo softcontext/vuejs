@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>Hello Vue</title>
+  </head>
+  <body>
+
+    <div id="app">
+      <h1>{{ message }}</h1>
+      <input v-model="message">
+    </div>
+
+    <div>
+      <h1 id="title"></h1>
+      <input id="memo">
+    </div>
+
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app', // 타겟 엘리먼트를 가리킨다.
+      data: { // 취급할 상태정보를 data에 저장한다.
+        message: 'Greetings your Majesty!'
+      }
+    })
+  </script>
+
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script>
+    var memo = 'Greetings your Majesty!';
+    $('#title').text(memo);
+    $('#memo').val(memo);
+
+    $('#memo').on('keyup', function () {
+      memo = $('#memo').val();
+      $('#title').text(memo);
+    })
+  </script>
+
+</html>

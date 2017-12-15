@@ -1,0 +1,30 @@
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <title>Hello Vue</title>
+</head>
+<body>
+
+    <div class="container">
+        <story></story>
+        <story></story>
+        <story></story>
+    </div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script type="text/javascript">
+// Vue.component 함수를 사용하여 사용자 컴포넌트를 등록하고 'story' 키워드로 가리킵니다.
+Vue.component('story', {
+    template: '<h1>My horse is amazing!</h1>'
+});
+
+// Vue 생성자를 호출하면서 선언적인 설정정보를 담은 객체를 전달합니다.
+// 클래스 .container로 지정된 엘리먼트 내부를 조사하여 요청받은 작업을 처리합니다.
+// <story></story> 태그를 발견하면 'story' 키워드로 등록된 template의 값으로 치환됩니다.
+new Vue({
+    el: '.container'
+})
+</script>
+</html>

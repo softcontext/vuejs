@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <my-component v-for="(item, index) in items" :item="item" :index="index" :key="item.id"></my-component>
+      <hr>
+      <my-component
+        v-for="(item, index) in items"
+        v-bind:item="item"
+        v-bind:index="index"
+        v-bind:key="item.id">
+      </my-component>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      Vue.component('my-component', {
+        // 반복된 데이터를 컴포넌트에 전달하려면 props 를 사용해야 합니다.
+        props: ['item', 'index'],
+        template: '<p>{{ index }}. {{ item.id }}: {{ item.message }}</p>'
+      })
+
+      new Vue({
+        el: '#example',
+        data: {
+          items: [
+            { id: 1, message: 'Foo' },
+            { id: 2, message: 'Bar' }
+          ]
+        }
+      })
+    </script>
+  </body>
+</html>

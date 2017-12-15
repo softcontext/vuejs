@@ -1,0 +1,96 @@
+<html>
+<head>
+  <title>Food Battle</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container text-center">
+    <h1>Food Battle</h1>
+
+    <p style="font-size: 140px;">{{ votes.count }}</p>
+    <button class="btn btn-danger" @click="reset">Reset votes</button>
+    <hr>
+
+    <div class="row">
+      <food name="Cheeseburger"></food>
+      <food name="Double Bacon Burger"></food>
+      <food name="Whooper"></food>
+    </div>
+    <hr>
+
+    <h1>Log:</h1>
+    <ul class="list-group">
+      <li class="list-group-item" v-for="lo in votes.log"> {{ lo }} </li>
+    </ul>
+  </div>
+
+</body>
+
+<template id="food">
+  <div class="text-center col-lg-4">
+    <p style="font-size: 40px;">{{ votes }}</p>
+    <button class="btn btn-default" @click="vote">{{ name }}</button>
+  </div>
+</template>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script type="text/javascript">
+// 이벤트 버스
+var bus = new Vue()
+
+Vue.component('food', {
+  template: '#food',
+  props: ['name'],
+  data: function () {
+    return {
+      votes: 0
+    }
+  },
+  methods: {
+    vote: function (event) {
+      // instead of using this.name
+      // we can access event's element's text
+      var food = event.srcElement.textContent;
+      this.votes++
+      bus.$emit('voted', food)
+    },
+    reset: function () {
+      this.votes = 0
+    }
+  },
+  created () {
+    // 리셋 이벤트 구독을 버스객체에 미리 등록한다.
+    bus.$on('reset', this.reset)
+  }
+})
+
+new Vue({
+  el: '.container',
+  data: {
+    votes: {
+      count: 0,
+      log: []
+    }
+  },
+  methods: {
+    countVote: function (food) {
+      this.votes.count++
+      this.votes.log.push(food + ' received a vote.')
+    },
+    reset: function () {
+      // 부모 컴포넌트에 데이터를 초기화한다.
+      this.votes = {
+        count: 0,
+        log: []
+      }
+      // 리셋 이벤트를 버스객체에 방출한다.
+      bus.$emit('reset')
+    }
+  },
+  created () {
+    bus.$on('voted', this.countVote)
+  }
+})
+</script>
+</html>

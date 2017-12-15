@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <ul>
+        <li v-for="todo in todos" :key="todo.id" v-if="!todo.isComplete">
+          {{ todo.id }}. {{ todo.task }}
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      new Vue({
+        el: '#example',
+        data: {
+          todos: [
+            { id: 1, task: 'Foo', isComplete: false },
+            { id: 2, task: 'Bar', isComplete: true },
+            { id: 3, task: 'Baz', isComplete: false },
+          ]
+        }
+      })
+    </script>
+  </body>
+</html>

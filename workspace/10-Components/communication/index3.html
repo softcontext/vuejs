@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <input v-model="parentMsg">
+      <br>
+      <!--
+      v-bind를 사용하여 부모의 데이터에 props를 동적으로 바인딩 할 수 있습니다.
+      데이터가 상위에서 업데이트 될 때마다 하위 데이터로도 전달됩니다. -->
+      <child v-bind:my-message="parentMsg"></child>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      Vue.component('child', {
+        props: ['myMessage'],
+        template: `<span>{{ myMessage }}</span>`
+      })
+
+      new Vue({
+        el: '#example',
+        data: {
+          parentMsg: ''
+        }
+      })
+    </script>
+  </body>
+</html>

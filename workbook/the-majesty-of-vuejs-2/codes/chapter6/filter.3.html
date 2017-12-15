@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <title>Famous Stories</title>
+  </head>
+  <body>
+
+    <div class="container">
+      <h2>Date Filter</h2>
+
+      <input type="text" class="form-control" v-model="date"><br>
+      <button type="button" @click="getDataFromServer()">Get Data</button>
+      <button type="button" @click="saveDataToServer()">Send Data</button>
+
+      <pre>{{ $data }}</pre>
+    </div>
+
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.4/moment.min.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '.container',
+      data: {
+        date: null
+      },
+      methods: {
+        getDataFromServer: function () {
+          // ajaxCall to get data from server let's pretend
+          // the received date data was saved in a variable
+          var serverDate = '20171225';
+
+          //format it and save to vue data property
+          // this.date = this.frontEndDateFormat(serverDate);
+          this.date = this.$options.filters.frontEndDateFormat(serverDate);
+        },
+        saveDataToServer: function () {
+          //format data first before sending it back to server
+          // var serverDate = this.backEndDateFormat(this.date);
+          var serverDate = this.$options.filters.backEndDateFormat(this.date);
+
+          //ajax call sending formatted data (serverDate) will output
+          //an alert for this ex.
+          alert(serverDate);
+        }
+      },
+      filters: {
+        frontEndDateFormat: function (date) {
+          return moment(date, 'YYYYMMDD').format('YYYY-MM-DD');
+        },
+        backEndDateFormat: function (date) {
+          return moment(date, 'YYYY-MM-DD').format('YYYYMMDD');
+        }
+      }
+    });
+  </script>
+</html>

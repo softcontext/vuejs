@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <todo-items></todo-items>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      // todo-items 이름을 가진 컴포넌트를 정의합니다
+      Vue.component('todo-items', {
+        template: '<ol><li>하나</li><li>둘</li></ol>'
+      })
+      new Vue({el: '#example'})
+    </script>
+  </body>
+</html>

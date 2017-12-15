@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <p>{{ a }}</p>
+      <input type="text" v-model="a">
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      var data = {a: 1}
+
+      var vm = new Vue({
+        el: '#example',
+        data: data
+      })
+
+      console.log(vm.$data === data); // => true
+
+      console.log(vm.$el === document.getElementById('example')); // => true
+
+      // $watch 는 인스턴스 메소드 입니다.
+      vm.$watch('a', function (newVal, oldVal) {
+        // `vm.a`가 변경되면 호출 됩니다.
+        console.log(newVal, oldVal);
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Hello Vue</title>
+</head>
+<body>
+<div id="app" style="text-align:center;">
+    <h1>You must send a message for help!</h1>
+    <textarea rows="5" cols="40" v-model="message"></textarea>
+    <br>
+    <hr>
+    <button v-show="message">
+        Send word to allies for help!
+        <br>
+        엘리먼트가 돔에 유지된다.
+    </button>
+    <hr>
+    <button v-if="message">
+        Send word to allies for help!
+        <br>
+        엘리먼트가 돔에서 제거된다.
+    </button>
+    <hr>
+    <pre>{{ $data }}</pre>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+             message: 'Our king is dead! Send help!'
+        }
+    })
+</script>
+</html>

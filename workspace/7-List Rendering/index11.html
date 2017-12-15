@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <ul>
+        <li v-for="n in evenNumbers">{{ n }}</li>
+      </ul>
+      <hr>
+      <ul v-if="even(numbers).length">
+        <li v-for="n in even(numbers)">{{ n }}</li>
+      </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: '#example',
+        data: {
+          numbers: [1, 2, 3, 4, 5]
+        },
+        computed: {
+          evenNumbers: function () {
+            return this.numbers.filter(function (number) {
+              return number % 2 === 0
+            })
+          }
+        },
+        methods: {
+          even: function (numbers) {
+            return numbers.filter(function (number) {
+              return number % 2 === 0
+            })
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

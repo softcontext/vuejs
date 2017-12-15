@@ -1,0 +1,114 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <title>Hello Vue</title>
+</head>
+<body>
+
+  <div id="app">
+    <div class="container">
+      <h1>Let's hear some stories!</h1>
+
+      <ul class="list-group">
+        <story v-for="story in stories" :story="story" :favorite="favorite"></story>
+      </ul>
+
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+
+  <template id="story-template">
+      <li class="list-group-item">
+          {{ story.writer }} said "{{ story.plot }}". Story upvotes
+          <mark>{{ story.upvotes }}</mark>.
+
+          <button v-show="!story.voted" @click="upvote" class="btn btn-default">
+              Upvote
+          </button>
+
+          <button v-show="!isFavorite" @click="setFavorite" class="btn btn-primary">
+              Favorite
+          </button>
+          <span v-show="isFavorite" class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span>
+      </li>
+  </template>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script type="text/javascript">
+Vue.component('story', {
+    template: "#story-template",
+    props: ['story', 'favorite'],
+    methods:{
+        upvote: function(){
+            // 부모가 파라미터로 넘겨준 객체의 프로퍼티가 가리키는 값을 바꾼다.
+            // {{ $data }} 로 부모가 가진 데이터 값이 변경되는 것을 확인할 수 있다.
+            // 부모는 자신의 데이터 값이 변경되면 화면을 다시 랜더링 하는데
+            // 이 때, story 컴포넌트를 다시 그리기 위해서 파라미터 값이 전달된다.
+            // story 변수의 값은 싱크가 맞기 때문에 문제가 없으나
+            // favorite 변수의 값은 부모가 주는 값 favorite: {} 새로운 빈 객체를 받아서
+            // 재 랜더링 이전에 사용자가 선택해서 값을 갖고 있을 수 있는 정보는 소실된다.
+            this.story.upvotes += 1;
+            this.story.voted = true;
+        },
+        // [Vue warn]: Avoid mutating a prop directly
+        // since the value will be overwritten
+        // whenever the parent component re-renders.
+        // 컴포넌트에서 props를 변경하지만 부모 컴포넌트가 다시 렌더링되면
+        // ['story', 'favorite'] 값이 다시 자식 컴포넌트에게 전달되어 덮어 쓰여지게 되면서
+        // 이전 화면에서의 모든 변경 사항이 손실됩니다.
+        setFavorite: function () {
+            // this.favorite 변수가 가리키는 객체를 버리고
+            // this.story 변수가 가리키는 객체의 참조값을 할당한다.
+            this.favorite = this.story;
+            // 부모 데이터 객체의 favorite: {} 값은 변경되지 않는다.
+            // 자식 컴포넌트의 props: ['favorite'] 값만 변경된다.
+            console.log('this.favorite updated. ==> ', this.story.plot, '[',  this.story.upvotes, ']');
+        }
+    },
+    computed:{
+      isFavorite: function () {
+        // setFavorite 함수가 호출되면 this.favorite 값이 변경되고
+        // 이 함수에서 this.favorite 값을 사용하므로 자동으로 호출된다.
+        console.log('computed # isFavorite called.');
+        console.log(this.story.upvotes, ' === ', this.favorite.upvotes);
+        return this.story == this.favorite;
+      }
+    }
+});
+
+new Vue({
+    el: '#app',
+    data: {
+        stories: [
+            {
+                plot: 'My horse is amazing.',
+                writer: 'Mr. Weebl',
+                upvotes: 28,
+                voted: false,
+            },
+            {
+                plot: 'Narwhals invented Shish Kebab.',
+                writer: 'Mr. Weebl',
+                upvotes: 8,
+                voted: false,
+            },
+            {
+                plot: 'The dark side of the Force is stronger.',
+                writer: 'Darth Vader',
+                upvotes: 49,
+                voted: false,
+            },
+            {
+                plot: 'One does not simply walk into Mordor',
+                writer: 'Boromir',
+                upvotes: 74,
+                voted: false,
+            },
+        ],
+        favorite: {}
+    }
+})
+</script>
+</html>

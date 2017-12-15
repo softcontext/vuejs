@@ -1,0 +1,103 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <title>Hello Vue</title>
+</head>
+<body>
+
+  <div id="app">
+    <div class="container">
+      <h1>Let's hear some stories!</h1>
+
+      <ul class="list-group">
+        <story v-for="story in stories" :story="story" :favor="favorite"></story>
+      </ul>
+
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+
+  <template id="story-template">
+      <li class="list-group-item">
+          {{ story.writer }} said "{{ story.plot }}". Story upvotes
+          <code>{{ story.upvotes }}</code>.
+
+          <button v-show="!story.voted" @click="upvote" class="btn btn-default">
+              Upvote
+          </button>
+
+          <button v-show="!isFavorite" @click="setFavorite" class="btn btn-primary">
+              Favorite {{favor.x}}
+          </button>
+          <span v-show="isFavorite" class="glyphicon glyphicon-star pull-right" aria-hidden="true"></span>
+      </li>
+  </template>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script type="text/javascript">
+Vue.component('story', {
+    template: "#story-template",
+    props: ['story', 'favor'],
+    methods:{
+        upvote: function() {
+            this.story.upvotes += 1;
+            this.story.voted = true;
+        },
+        setFavorite: function () {
+            this.favor.x = this.favor.x + 1;
+            this.favor.story = this.story;
+            // 부모의 this.favor.story 변수가 this.story 객체를 가리키도록 한다.
+            // 참조값 복사의 성질을 이용하여 자식 컴포넌트가 직접
+            // 부모 컴포넌트의 변수가 가리키는 객체의 프로퍼티 값을 변경한다.
+        }
+    },
+    computed:{
+      isFavorite: function () {
+        console.log('------------');
+        console.log(this.favor.x, ':', this.story == this.favor.story);
+        return this.story == this.favor.story;
+      }
+    }
+});
+
+new Vue({
+    el: '#app',
+    data: {
+        stories: [
+            {
+                plot: 'My horse is amazing.',
+                writer: 'Mr. Weebl',
+                upvotes: 28,
+                voted: false,
+            },
+            {
+                plot: 'Narwhals invented Shish Kebab.',
+                writer: 'Mr. Weebl',
+                upvotes: 8,
+                voted: false,
+            },
+            {
+                plot: 'The dark side of the Force is stronger.',
+                writer: 'Darth Vader',
+                upvotes: 49,
+                voted: false,
+            },
+            {
+                plot: 'One does not simply walk into Mordor',
+                writer: 'Boromir',
+                upvotes: 74,
+                voted: false,
+            },
+        ],
+        favorite: {
+          x:1,
+          story: {
+            // 부모가 값이 빈 프로퍼티를 선언해서 데이터 보관장소를 마련한다.
+          }
+        }
+    }
+})
+</script>
+</html>

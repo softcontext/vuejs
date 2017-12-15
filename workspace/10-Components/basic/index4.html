@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <my-component></my-component>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      var data = { message: 'hello' }
+
+      Vue.component('my-component', {
+        template: '<span>{{ message }}</span>',
+        // [Vue warn]: The "data" option should be a function
+        // that returns a per-instance value in component definitions.
+        // data: {
+        //   message: 'hello'
+        // }
+        // Vue 생성자에 사용할 수 있는 대부분의 옵션은 컴포넌트에서 사용할 수 있습니다.
+        // 한가지 특별한 경우가 있습니다. data 는 함수여야 합니다.
+        data: function () {
+          return data
+        }
+      })
+
+      new Vue({el: '#example'})
+    </script>
+  </body>
+</html>

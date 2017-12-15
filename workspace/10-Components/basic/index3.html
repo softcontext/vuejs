@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <table>
+        <my-row></my-row>
+      </table>
+      <hr>
+      <table>
+        <!--
+        <ul>,<ol>,<table>과<select>와 같은 일부 엘리먼트는
+        그 안에 어떤 엘리먼트가 나타날 수 있는지에 대한 제한을 가지고 있으며,
+        <option>과 같이 특정 다른 엘리먼트 안에만 나타날 수 있습니다.
+        결과적으로 렌더링시 에러를 발생시킵니다.
+        해결 방법은 is 특수 속성을 사용하는 것입니다.  -->
+        <tr is="my-row"></tr>
+        <!--
+        다음 소스 중 하나에 포함되면 문자열 템플릿을 사용하는 경우에는 이러한 제한 사항이 적용되지 않습니다.
+        1. <script type="text/x-template">
+        2. JavaScript 인라인 템플릿 문자열
+        3. .vue 컴포넌트
+        따라서, 가능한 경우 항상 템플릿 문자열을 사용하는 것이 좋습니다.  -->
+      </table>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      // 등록
+      Vue.component('my-row', {
+        template: '<tr><td>11</td></tr>'
+      })
+
+      // 루트 인스턴스 생성
+      new Vue({el: '#example'})
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <p>메시지: {{ message }}</p>
+      <p style="white-space: pre-line">{{ message }}</p>
+      <form action="#" method="post">
+        <div>
+          <input v-model="message" placeholder="여기를 수정해보세요">
+        </div>
+        <div>
+          <textarea cols="30" v-model="message" placeholder="여러줄을 입력해보세요"></textarea>
+        </div>
+        <div>
+          <input type="checkbox" id="checkbox" v-model="checked">
+          <label for="checkbox">{{ checked }}</label>
+        </div>
+      </form>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: '#example',
+        data: {
+          message: 'Hello World!',
+          checked: false
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="example">
+      <ul>
+        <li v-for="todo in todos" :key="todo.id" v-if="!todo.isComplete">
+          {{ todo.id }}. {{ todo.task }}
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript">
+      var example = new Vue({
+        el: '#example',
+        data: {
+          todos: [
+            { id: 1, task: 'Foo', isComplete: false },
+            { id: 2, task: 'Bar', isComplete: true },
+            { id: 3, task: 'Baz', isComplete: false },
+          ]
+        }
+      })
+
+      setTimeout(() => {
+        // 1. 배열 대체
+        // 바로 filter(), concat() 와 slice() 입니다.
+        example.todos = example.todos.filter(function (todo) {
+          return todo.task.match(/Foo/)
+        })
+      }, 3000)
+
+      // 2. 변이 메소드
+      // Vue는 감시중인 배열의 변이 메소드를 래핑하여 뷰 갱신을 트리거합니다.
+      // 래핑된 메소드는 다음과 같습니다.
+      // push(),pop(),shift(),unshift(),splice(),sort(),reverse()
+    </script>
+  </body>
+</html>
