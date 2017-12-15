@@ -1,5 +1,5 @@
 For most projects, it is better to configure language-babel via project-based .languagebabel file properties which will override the package settings below.
-See ".langeuagebabel Configuration" for more information on this behaviour.
+See "`.languagebabel` Configuration" for more information on this behaviour.
 
 ```
 {

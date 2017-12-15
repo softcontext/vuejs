@@ -54,7 +54,7 @@ Nightwatch.js 는 Selenium/WebDriver 서버에서 실행되는 Node.js 기반의
 Selenium server 는 Java 환경에서 실행되므로 최소 7버전 이상의 Java SE Development Kit이 필요합니다.
 <br>
 
-### Component Generator
+# Component Generator
 https://www.npmjs.com/package/vue-generate-component
 <br>
 
@@ -217,7 +217,7 @@ Hello.vue
 
 ### SCSS Dependency
 
-다음 코드의 lang="scss" 속성을 위해서 SCSS 디펜던시가 필요하다.
+다음 코드의 `lang="scss"` 속성을 위해서 SCSS 디펜던시가 필요하다.
 
 ```html
 <style scoped lang="scss">
@@ -231,3 +231,5 @@ Hello.vue
 
 `npm install --save-dev sass-loader`
 `npm install --save-dev node-sass`
+
+이미 테스트 웹서버를 실행중인 상태라면 재 기동이 필요할 수도 있다.
