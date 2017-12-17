@@ -3,6 +3,7 @@ var data = {
   title: 'My Shopping List',
   newItem: ''
 };
+
 /**
  * Declaring components
  */
@@ -20,12 +21,14 @@ var ItemsComponent = Vue.extend({
   '           </li>' +
   '         </ul>'
 });
+
 var ChangeTitleComponent = Vue.extend({
   data: function () {
     return data;
   },
   template: '<input v-model="title"/>'
 });
+
 var AddItemComponent = Vue.extend({
   data: function () {
     return data;
@@ -52,6 +55,7 @@ var AddItemComponent = Vue.extend({
     '</span>'                                                                                                                 +
   '</div>'
 });
+
 /**
  * Registering components
  */

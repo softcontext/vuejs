@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <h2></h2>
+      <input>
+    </div>
+
+    <script type="text/javascript">
+
+    /**
+     * JS 객체가 상태정보를 보관한다.
+     */
+
+      var obj = {}
+      var text = 'Hello' // 초기 값
+
+      /**
+       * id="app" 을 속성으로 가진 div 엘리먼트의 자식 엘리먼트들이 제어의 대상이 된다.
+       */
+
+      var h2 = document.getElementsByTagName('h2')[0]
+      var input = document.getElementsByTagName('input')[0]
+
+      /**
+       * 변경감지(JS 객체가 보관하는 상태정보의 갱신이 있을 때 화면 엘리먼트의 값을 갱신)를
+       * 위해서 객체의 접근자 프로퍼티를 사용한다.
+       */
+
+      Object.defineProperty(obj, 'text', {
+        get: function(){
+          // console.log('obj # text # get() called.');
+          return text
+        },
+        set: function(newVal){
+          // console.log('obj # text # set() called.');
+
+          // #1
+          text = newVal
+          // JS 객체가 보관하는 상태정보의 갱신이 있을 때 화면 엘리먼트의 값을 갱신
+          h2.innerHTML = text
+        }
+      })
+
+      /**
+       * 템플릿에 선언적으로 데이터 바인딩이 정의되어 있다면 처리하는 방법의 예시
+       */
+
+      // <h2>{{ text }}</h2> 보간표현식을 처리하는 방법의 예시
+      h2.innerHTML = text
+
+      // <input v-bind:value='text'>
+      input.value = text
+
+      // <input v-on:keyup='cb'>
+      var cb = function (e) {
+        // console.log(e.target.value);
+
+        // obj.text 는 접근자 프로퍼티로써 할당연산자와 같이 사용되면
+        // #1 부분의 로직이 수행되면서 값을 수정하고
+        // 해당 값을 엘리먼트에 적용하여 갱신되게 조작한다.
+        obj.text = e.target.value
+      }
+      input.addEventListener('keyup', cb)
+
+      // 양방향 바인딩 설정 속성 예시는 다음과 같다.
+      // <input v-model='text'>
+      // v-model 속성은 v-bind, v-on 속성을 한 번에 설정한 것과 같다.
+
+    </script>
+  </body>
+</html>
