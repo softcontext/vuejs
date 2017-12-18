@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>Hello {{name}}</h1>
+    </div>
+    <script type="text/javascript">
+      // 새로운 뷰 인스턴스를 만든다.
+      // Vue.js 프레임워크의 시작을 의미한다.
+      new Vue({
+        // 랜더링 타겟 엘리먼트를 지정한다.
+        el: '#app',
+        // 해당 뷰에서 사용하는 데이터를 정의한다.
+        data: function () {
+          return {
+            name: 'World'
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

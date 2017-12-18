@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <child :message="text"></child>
+    </div>
+
+    <script type="text/javascript">
+      Vue.component('child', {
+        // 부모 인스턴스/컴포넌트 로부터 데이터를 받는다.
+        props: ['message'],
+        template: `
+          <h1>{{message}}</h1>
+        `
+        }
+      )
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            text: 'Hello Vue'
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

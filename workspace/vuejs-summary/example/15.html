@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <header-component></header-component>
+      <simple-counter></simple-counter>
+      <simple-counter></simple-counter>
+      <simple-counter></simple-counter>
+    </div>
+
+    <script type="text/javascript">
+      Vue.component('header-component', {
+        template: `
+          <h1>{{message}}</h1>
+        `,
+        data: function () {
+          return {
+            message: 'Hello'
+          };
+        }
+      })
+
+      var SimpleCounter = {
+        template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+        data: function () {
+          // simple-counter 컴포넌트는 각각 새로 만든 데이터 객체를 참조한다.
+          return { counter: 0 };
+        }
+      };
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+
+          }
+        },
+        components: {
+          'simple-counter': SimpleCounter
+        }
+      });
+    </script>
+  </body>
+</html>

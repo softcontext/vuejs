@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>Scores's size: {{scores.length}}</h1>
+      <ul>
+        <li v-for="s in scores">{{s}}</li>
+      </ul>
+    </div>
+    <script type="text/javascript">
+      var delay = function (tag, millisecond) {
+        console.log(tag, ' : start');
+        var old = Date.now();
+        while (Date.now() < (old+millisecond)) {}
+        console.log(tag, ' : end');
+      }
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            scores: []
+          }
+        },
+        // delay: function (tag, millisecond) {
+        //   console.log(tag, ' : start');
+        //   var old = Date.now();
+        //   while (Date.now() < (old+millisecond)) {}
+        //   console.log(tag, ' : end');
+        // },
+        beforeCreate: function () {
+          // for (var variable in this) {
+          //   if (this.hasOwnProperty(variable)) {
+          //     console.log(variable);
+          //   }
+          // }
+          // console.log(this.delay); // undefined
+
+          delay('beforeCreate', 2000);
+        },
+        created: function () {
+          delay('created', 2000);
+        },
+        mounted: function () {
+          delay('mounted', 2000);
+
+          var self = this;
+          setTimeout(function () {
+            self.scores = [77, 89, 65, 99, 50];
+          }, 2000);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>{{ title }}</h1>
+      <ul>
+        <li v-for="(todo, idx) in todos">{{todo.id}} : {{todo.title}} : {{idx}}</li>
+      </ul>
+    </div>
+
+    <script type="text/javascript">
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            title: 'To-do List',
+            todos: [
+              {id:1, title: 'Buy apple'},
+              {id:2, title: 'Buy kiwi'},
+              {id:3, title: 'Buy banana'}
+            ]
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

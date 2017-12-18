@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <script type="text/javascript">
+        var h1 = document.createElement("h1");
+        h1.appendChild(document.createTextNode(Date()));
+        document.querySelector('#app').appendChild(h1);
+      </script>
+      <button type="button" onClick="popup()">Pop-up</button>
+
+      <hr>
+
+      <h1>{{ Date() }}</h1>
+      <button type="button" v-on:click="toast">Toast</button>
+    </div>
+    
+    <script type="text/javascript">
+      function popup() {
+        const d = new Date();
+        const ymd = d.getFullYear() + '-' +(d.getMonth() + 1) + '-' +  d.getDate();
+        const hms = d.getHours()+ ':'+d.getMinutes()+ ':'+d.getSeconds();
+        alert(ymd + ' ' + hms);
+      }
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+
+          }
+        },
+        methods: {
+          toast: function () {
+            popup();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

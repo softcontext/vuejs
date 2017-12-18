@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <!-- 객체의 모든 속성을 props로 전달하려면, 인자없이 v-bind를 쓸 수 있습니다.  -->
+      <todo-item v-bind="todo"></todo-item>
+    </div>
+
+    <script type="text/javascript">
+      Vue.component('todo-item', {
+        // 부모 인스턴스/컴포넌트 로부터 데이터를 받는다.
+        props: ['text', 'isComplete'],
+        template: `
+          <h1>{{text}}, {{isComplete}}</h1>
+        `
+        }
+      )
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            todo: {
+              text: 'Learn Vue',
+              isComplete: false
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

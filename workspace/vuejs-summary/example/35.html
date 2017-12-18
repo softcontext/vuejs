@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <!-- <div v-component="my-component"></div> -->
+      <!-- v-component and v-with was deprecated. use is instead. -->
+      <div is="my-component"></div>
+    </div>
+
+    <script type="text/javascript">
+      // var MyComponent = Vue.extend({
+      //   template: 'A custom component!'
+      // })
+      // Vue.component('my-component', MyComponent)
+
+      // To make things easier, you can also directly pass in the option object
+      Vue.component('my-component', {
+          template: '<h1>A custom component!</h1>'
+      })
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

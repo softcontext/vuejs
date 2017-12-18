@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>나는 부모 컴포넌트의 제목입니다</h1>
+      <my-component>
+        <p>이것은 부모가 지정해준 컨텐츠 입니다.</p>
+      </my-component>
+    </div>
+
+    <script type="text/javascript">
+      // slot 태그는 앵귤러의 ng-transclude 속성과 비슷한 기능입니다.
+      Vue.component('my-component', {
+        props: [],
+        template: `
+          <div>
+            <h2>나는 자식 컴포넌트의 제목입니다</h2>
+            <slot>
+              제공된 컨텐츠가 없는 경우에만 보실 수 디폴트 컨텐츠 입니다.
+            </slot>
+          </div>
+        `,
+        methods: {
+
+        }
+      })
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            initCount: 0
+          }
+        },
+        methods: {
+
+        }
+      });
+    </script>
+  </body>
+</html>

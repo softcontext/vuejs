@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>나는 부모 컴포넌트의 제목입니다</h1>
+      <child ref="son"></child>
+      <button type="button" @click="popup">Confirm</button>
+    </div>
+
+    <script type="text/javascript">
+      Vue.component('child', {
+        props: [],
+        template: `
+          <h2>나는 자식 컴포넌트의 제목입니다</h2>
+        `,
+        methods: {
+
+        }
+      })
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+
+          }
+        },
+        methods: {
+          popup: function () {
+            // $refs 는 컴포넌트가 렌더링 된 후에만 채워지며 반응적이지 않습니다.
+            // 템플릿이나 계산 된 속성에서 $refs를 사용하지 말아야합니다.
+            // 앵귤러, 리액트는 템플릿에서 사용이 가능하면 각각 #, ref 라는 기호를 사용합니다.
+            console.log(this.$refs.son);
+            alert(this.$refs.son.$el.innerHTML)
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

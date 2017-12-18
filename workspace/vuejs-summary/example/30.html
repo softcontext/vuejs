@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>나는 부모 컴포넌트의 제목입니다</h1>
+      <child>
+        <!-- 부모에서, 특별한 속성 scope-scope를 가진 <template> 엘리먼트가 있어야 합니다.
+        이것은 범위를 가지는 슬롯을 위한 템플릿임을 나타냅니다. slot-scope의 값은 자식으로부터 전달 된 props 객체를 담고있는 임시 변수의 이름입니다 -->
+        <template slot-scope="props">
+          <div>hello from parent</div>
+          <div>{{ props.text }}</div>
+        </template>
+      </child>
+    </div>
+
+    <script type="text/javascript">
+      Vue.component('child', {
+        props: [],
+        // text 키로 "hello from child" 문자열을 부모의 템플릿의 설정에 따라
+        // (slot-scope="props") props 변수에 담습니다.
+        template: `
+          <div>
+            <h2>나는 자식 컴포넌트의 제목입니다</h2>
+            <slot text="hello from child"></slot>
+          </div>
+        `,
+        methods: {
+
+        }
+      })
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+
+          }
+        },
+        methods: {
+
+        }
+      });
+    </script>
+  </body>
+</html>

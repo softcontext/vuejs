@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>{{ count }}</h1>
+      <button type="button" v-on:click="plus">+1</button>
+      <button type="button" v-on:click="minus">-1</button>
+      <button type="button" @click="change($event, direction)">+/-</button>
+    </div>
+
+    <script type="text/javascript">
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            count: 0,
+            direction: true
+          }
+        },
+        methods: {
+          plus: function () {
+            this.count++;
+          },
+          minus: function () {
+            this.count--;
+          },
+          change: function (e, direction) {
+            console.log(e.target);
+            console.log(direction);
+
+            if (direction) {
+              this.count++;
+            } else {
+              this.count--;
+            }
+            this.direction = !this.direction;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

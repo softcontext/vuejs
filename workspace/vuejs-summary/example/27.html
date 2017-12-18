@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <app-header :count="initCount"></app-header>
+      <app-footer></app-footer>
+    </div>
+
+    <script type="text/javascript">
+      // 때로는 두 컴포넌트가 서로 통신 할 필요가 있지만 서로 부모/자식이 아닐 수도 있습니다.
+      // 간단한 시나리오에서는 비어있는 Vue 인스턴스를 중앙 이벤트 버스로 사용할 수 있습니다.
+      // 보다 복잡한 경우에는 전용 상태 관리 패턴을 적용한 Vuex의 사용을 고려해야합니다
+      var bus = new Vue();
+
+      Vue.component('app-header', {
+        props: ['count'],
+        template: `
+          <h1>{{count}}</h1>
+        `,
+        methods: {
+
+        },
+        mounted: function () {
+          const self = this;
+          bus.$on('plus', function () {
+            self.$parent.initCount++;
+          });
+        }
+      })
+
+      Vue.component('app-footer', {
+        props: [],
+        template: `
+          <button @click="increment">+1</button>
+        `,
+        methods: {
+          increment: function () {
+            console.log('increment() called.');
+            bus.$emit('plus');
+          }
+        }
+      })
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            initCount: 0
+          }
+        },
+        methods: {
+
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <!-- v-bind 설정으로 10은 문자열에서 숫자로 변경되어 전달됩니다. -->
+      <!-- HTML 속성은 대소문자를 구분하지 않으므로 케밥케이스 표기법을 사용합니다. -->
+      <counter v-bind:initial-counter="10"></counter>
+    </div>
+
+    <script type="text/javascript">
+      Vue.component('counter', {
+        props: ['initialCounter'],
+        template: `
+          <h1>{{counter}}</h1>
+        `,
+        data: function () {
+          // 외부에서 전달된 데이터를 직접 수정하면 데이터가 객체, 배열인 경우
+          // 부모의 데이터 상태를 조작하게 됩니다.
+          // 받는 데이터는 보존하고 데이터 조작을 위해서 해당 컴포넌트 내부 변수에
+          // 옮겨서 사용하는 것이 의도하지 않는 버그를 줄이는 방법입니다.
+          return { counter: this.initialCounter }
+        }
+      })
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

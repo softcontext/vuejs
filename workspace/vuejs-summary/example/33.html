@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>나는 부모 컴포넌트의 제목입니다</h1>
+      <async-example></async-example>
+    </div>
+
+    <script type="text/javascript">
+      Vue.component('async-example', function (resolve, reject) {
+        setTimeout(function () {
+          // 컴포넌트 정의를 resolve 콜백에 전달합니다.
+          // v-once 디렉티브를 루트 엘리먼트에 추가함으로써
+          // 캐시가 한번만 실행되도록 할 수 있습니다.
+          resolve({
+            template: '<div v-once>I am async!</div>'
+          })
+        }, 2000)
+      })
+
+      new Vue({
+        el: '#app',
+        data: function () {
+          return {
+
+          }
+        },
+        methods: {
+
+        }
+      });
+    </script>
+  </body>
+</html>
