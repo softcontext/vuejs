@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+
+    <div id="app">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation">
+              <a href="#" @click="currentView='manage-posts'">Manage Posts</a>
+            </li>
+            <li role="presentation">
+              <a href="#" @click="currentView='create-post'">Create Post</a>
+            </li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">SoftContext</h3>
+      </div>
+
+      <div class="container">
+        <!-- 트랜지션된 컴포넌트를 메모리에 유지하여 상태를 보존하거나
+        다시 렌더링하지 않도록하려면 동적 컴포넌트를 <keep-alive> 엘리먼트에
+        래핑 할 수 있습니다.
+        동적으로 컴포넌트가 변경될 때 created, destroyed 메소드가 작동하지 않는 대신
+        activated, deactivated 메소드가 작동한다. -->
+        <!-- <keep-alive> -->
+          <component :is="currentView"></component>
+        <!-- </keep-alive> -->
+      </div>
+    </div>
+
+    <template id="manage-template">
+      <div>
+        <h1>Manage Posts</h1>
+        <div class="list-group">
+          <a v-for="post in posts" href="#" class="list-group-item clearfix">
+            {{ post }}
+            <span class="pull-right">
+              <button class="btn btn-xs btn-info">
+                <span class="glyphicon glyphicon-edit"></span>
+              </button>
+              <button class="btn btn-xs btn-warning">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </span>
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <template id="create-template">
+      <div>
+        <h1>Create Post</h1>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Post title</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Post title">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Post body</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" rows="5"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </template>
+
+    <script type="text/javascript">
+      Vue.component('manage-posts', {
+        template: '#manage-template',
+        data: function () {
+          return {
+            posts: [
+              'Vue.js: The Basics',
+              'Vue.js Components',
+              'Server Side Rendering with Vue',
+              'Vue + Firebase']
+          }
+        }
+      })
+
+      Vue.component('create-post', {
+        template: '#create-template',
+        created() {
+          console.log('create-post ### created() called.');
+        },
+        activated(){
+          console.log('create-post ### activated() called.');
+        },
+        deactivated(){
+          console.log('create-post ### deactivated() called.');
+        },
+        beforeDestroy(){
+          console.log('create-post ### beforeDestroy() called.');
+        },
+        destroyed(){
+          console.log('create-post ### destroyed() called.');
+        }
+      })
+
+      new Vue({
+        el: '#app',
+        data: {
+          currentView: 'manage-posts'
+        }
+      })
+    </script>
+
+    <style media="screen" scoped="true">
+      .header {
+        padding: 15px 15px 20px;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .header h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 40px;
+      }
+    </style>
+  </body>
+</html>

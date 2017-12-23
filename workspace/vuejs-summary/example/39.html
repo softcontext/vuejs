@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+
+    <div class="container">
+      <div id="app">
+        <input v-focus :value="message">
+      </div>
+    </div>
+
+    <script type="text/javascript">
+
+      // 전역 사용자 정의 디렉티브 v-focus 등록
+      Vue.directive('focus', {
+        // 바인딩 된 엘리먼트가 DOM에 삽입되었을 때...
+        inserted: function (el) {
+          // 엘리먼트에 포커스를 줍니다
+          el.focus()
+          console.log('Global # directive # focus');
+        }
+      })
+
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello'
+        },
+        directives: { // 로컬 사용자 정의 디렉티브
+          focus: { // 로컬 디렉티브를 주석처리하면 전역 디렉티브가 적용된다.
+            inserted: function (el) {
+              el.value = 'Hi'
+              console.log('Local # directive # focus');
+            }
+          }
+        }
+      })
+    </script>
+
+  </body>
+</html>

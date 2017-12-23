@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+
+    <div class="container">
+      <div id="app">
+        <p v-bg-color>{{ message }}</p>
+        <p v-bg-color="'#00ff00'">{{ message }}</p>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+
+      Vue.directive('bgColor', {
+        bind(el, binding, vnode) {
+          var color = binding.expression || '#86bbff'
+          color = color.replace(/'/gi, "")
+
+          if (el) {
+            el.style.backgroundColor = color
+          }
+        }
+      })
+
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello'
+        }
+      })
+
+    </script>
+
+  </body>
+</html>

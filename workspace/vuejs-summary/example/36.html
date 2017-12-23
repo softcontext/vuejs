@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <h1>{{count}}</h1>
+      <h2>{{computedCount}}</h2>
+      <button @click="increment"> + 1 </button>
+    </div>
+
+    <script type="text/javascript">
+      new Vue({
+        el: '#app',
+
+        // ---------------------------------------------
+        beforeCreate(){
+          console.log('Vue ### beforeCreate() called.');
+        },
+        data() {
+          console.log('Vue >>> data() called.');
+          return {
+            count: 0
+          }
+        },
+        created() {
+          console.log('Vue ### created() called.');
+          this.count = 1
+        },
+        // ---------------------------------------------
+        beforeMount(){
+          console.log('Vue ### beforeMount() called.');
+        },
+        computed: {
+          // 화면에서 사용하지 않으면 호출되지 않는다.
+          computedCount() {
+            console.log('Vue >>> computed >>> computedCount() called.');
+            return this.count + 100
+          }
+        },
+        mounted(){
+          console.log('Vue ### mounted() called.');
+        },
+        // ---------------------------------------------
+        methods: {
+          increment(){
+            console.log('Vue >>> methods >>> increment() called.');
+            this.count++
+
+            setTimeout(() => {
+              console.log('-----------------------------');
+              this.count++
+            }, 5000)
+          }
+        },
+        //
+        // computedCount() 메소드가 기동한다.
+        //
+        beforeUpdate(){
+          console.log('Vue ### beforeUpdate() called.');
+        },
+        updated(){
+          console.log('Vue ### updated() called.');
+        }
+        // ---------------------------------------------
+      })
+    </script>
+  </body>
+</html>
